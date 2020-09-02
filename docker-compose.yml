@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  app-server:
+    image: "node:erbium"
+    container_name: "teratail-app-server"
+    working_dir: "/root/app"
+    command: >
+      /bin/sh -c
+      'npm install && node server'
+    volumes:
+      - "./app:/root/app"
+    ports:
+      - "8080:3000"
+    networks:
+      database-network:
+
+  mysql-server:
+    image: "mysql:8"
+    container_name: "teratail-mysql-server"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "database-volume:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=teratail
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=teratail
+    networks:
+      database-network:
+
+volumes:
+  database-volume:
+    name: "teratail-database-volume"
+
+networks:
+  database-network:
+    name: "teratail-database-network"
+

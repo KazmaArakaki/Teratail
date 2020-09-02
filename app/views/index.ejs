@@ -1,0 +1,16 @@
+<h1>/index</h1>
+
+<ul>
+  <% for (const vegetable of vegetables) { %>
+  <li>
+    <strong>
+      <%= vegetable.name %>
+    </strong>
+
+    <a href="/delete/<%= vegetable.id %>">
+      [Delete]
+    </a>
+  </li>
+  <% } %>
+</ul>
+

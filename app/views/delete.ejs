@@ -1,0 +1,11 @@
+<h1>/delete/<%= vegetable.id %></h1>
+
+<div id="delete-form">
+  <h2>
+    Are you sure you want to delete "<%= vegetable.name %>"?
+  </h2>
+
+  <form action="/delete/<%= vegetable.id %>" method="post">
+    <input type="submit" id="submit-btn" value="Delete">
+  </form>
+</div>
