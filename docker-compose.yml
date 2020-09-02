@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  app-server:
+    image: "nginx:1.18"
+    container_name: "teratail-app-server"
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/conf.d:/etc/nginx/conf.d"
+      - "./app:/usr/share/nginx/html"
+    ports:
+      - "8080:80"
+    networks:
+      app-network:
+
+  php-fpm:
+    image: "php:7.4-fpm"
+    container_name: "teratail-php-fpm"
+    volumes:
+      - "./app:/var/www/html"
+    networks:
+      app-network:
+        aliases:
+          - "php-fpm"
+
+networks:
+  app-network:
+    name: "teratail-288515-app-network"
+
