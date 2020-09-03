@@ -1,0 +1,26 @@
+FROM "php:7.4-fpm"
+
+WORKDIR /var/www/html
+
+RUN apt update && apt upgrade -y && apt install -y \
+  libmagickwand-dev \
+  libxml2-dev \
+  libzip-dev \
+  unzip \
+  wget
+
+RUN yes '' | pecl install \
+  imagick
+
+RUN docker-php-ext-enable \
+  imagick
+
+RUN docker-php-ext-install \
+  intl \
+  pdo_mysql \
+  zip
+
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet \
+  && mv composer.phar /usr/local/bin/composer.phar \
+  && ln -s composer.phar /usr/local/bin/composer
+
