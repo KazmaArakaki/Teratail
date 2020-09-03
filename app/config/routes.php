@@ -19,3 +19,9 @@ $routes->scope('/', function (RouteBuilder $builder) {
   $builder->fallbacks();
 });
 
+$routes->prefix('Api', function (RouteBuilder $builder) {
+  $builder->setExtensions(['json']);
+
+  $builder->fallbacks(DashedRoute::class);
+});
+
